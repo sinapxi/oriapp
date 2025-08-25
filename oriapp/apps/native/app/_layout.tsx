@@ -15,6 +15,14 @@ import React, { useRef } from "react";
 import { useColorScheme } from "@/lib/use-color-scheme";
 import { Platform } from "react-native";
 import { setAndroidNavigationBar } from "@/lib/android-navigation-bar";
+import { useFonts } from 'expo-font';
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from '@expo-google-fonts/inter';
+import * as SplashScreen from 'expo-splash-screen';
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -72,3 +80,25 @@ const useIsomorphicLayoutEffect =
 	Platform.OS === "web" && typeof window === "undefined"
 		? React.useEffect
 		: React.useLayoutEffect;
+
+// Inside RootLayout function, before the return:
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  });
+
+  React.useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+<File before.css={{ fontFamily: 'Inter_400Regular' }} />
+
+<File before.css={{ fontFamily: 'Inter_400Regular' }} />
