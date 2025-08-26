@@ -23,6 +23,7 @@ import {
   Inter_700Bold,
 } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
+import { authClient } from '@/lib/auth-client';
 
 const LIGHT_THEME: Theme = {
 	...DefaultTheme,
@@ -55,7 +56,9 @@ export default function RootLayout() {
 		hasMounted.current = true;
 	}, []);
 
-	if (!isColorSchemeLoaded) {
+	const { data: session, isLoading } = authClient.useSession();
+
+	if (isLoading || !isColorSchemeLoaded) {
 		return null;
 	}
 	return (
@@ -65,15 +68,19 @@ export default function RootLayout() {
 				<GestureHandlerRootView style={{ flex: 1 }}>
 					<Stack>
 						<Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-						<Stack.Screen
-							name="modal"
-							options={{ title: "Modal", presentation: "modal" }}
-						/>
+						<Stack.Screen name="(core)" options={{ headerShown: false }} />
+						{/* Agregar más grupos como (portal), (general) cuando se implementen */}
+						<Stack.Screen name="modal" options={{ title: "Modal", presentation: "modal" }} />
 					</Stack>
-				</GestureHandlerRootView>
-			</ThemeProvider>
-		</QueryClientProvider>
-	);
+				) : (
+					<Stack>
+						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+					</Stack>
+				)}
+			</GestureHandlerRootView>
+		</ThemeProvider>
+	</QueryClientProvider>
+);
 }
 
 const useIsomorphicLayoutEffect =

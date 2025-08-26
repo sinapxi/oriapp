@@ -33,12 +33,31 @@ export default function TabLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="two"
+				name="chat"
 				options={{
-					title: "Explore",
-					tabBarIcon: ({ color }) => (
-						<TabBarIcon name="compass" color={color} />
-					),
+					title: "Chat",
+					tabBarIcon: ({ color }) => <TabBarIcon name="chatbubble" color={color} />,
+				}}
+			/>
+			<Tabs.Screen
+				name="image-gen"
+				options={{
+					title: "Imágenes",
+					tabBarIcon: ({ color }) => <TabBarIcon name="images" color={color} />,
+				}}
+			/>
+			<Tabs.Screen
+				name="video-gen"
+				options={{
+					title: "Video",
+					tabBarIcon: ({ color }) => <TabBarIcon name="videocam" color={color} />,
+				}}
+			/>
+			<Tabs.Screen
+				name="audio-mode"
+				options={{
+					title: "Audio",
+					tabBarIcon: ({ color }) => <TabBarIcon name="mic" color={color} />,
 				}}
 			/>
 		</Tabs>
